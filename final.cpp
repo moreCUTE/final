@@ -19,7 +19,6 @@ int main() {
 	int room = 1;
 	string input;
 
-	PlaySoundA((LPCSTR))"", NULL, SND_FILENAME | SND_ASYNC);
 	cout << "you wake up to find yourself in a dark and scary basement. Try to escape, go ahead. Good Luck" << endl;
 
 	do { // beginning of game loop
@@ -69,7 +68,11 @@ int main() {
 			cout << "you have reached the end of the hallway where you find one more coin" << endl << "you see a big old door to the west and a turn to the east" << endl;
 			cin >> input;
 			if (input == "west")
-				room = 4;
+				if (items[4].compare("key4") != 0)
+					cout << "Room locked, cant go in" << endl;
+				else
+					room = 4;
+				
 			else if (input == "east")
 				room = 5;
 			else if (input == "south")
@@ -138,12 +141,12 @@ int main() {
 				cout << "nothig there" << endl;
 			break;
 		case 8:
-			if (items[1] != "flashlight") {
-				items[4] = "key room 4";
+			if (items[1] == "flashlight") {
+				items[4] = "key4";
 				cout << "you the got a key to room 4" << endl; 
 				 
 			}
-			if (items[1] != "") {
+			if (items[1] != "flashlight") {
 				cout << "you need a flaslight to search in the dark" << endl;
 
 			}
@@ -167,8 +170,11 @@ int main() {
 			cout << "you can go back east to the dark room" << endl; 
 			cin >> input;
 			if (input == "west")
-				room = 10;
-			else if (input == "south")
+				if (items[6].compare("key") != 0)
+					cout << "Door is locked, cant go in" << endl;
+				else
+					room = 10;
+			else if (input == "east")
 				room = 8;
 			else
 				cout << "nothing to see there" << endl;
